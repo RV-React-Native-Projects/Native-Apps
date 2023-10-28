@@ -18,7 +18,7 @@ export default function AppText(props) {
   const {
     size = 14 || fontObj?.fontSize, // size of the Text
     fontWeight = fontObj.fontWeight, // fontWeight of the Text
-    color = theme.black, // color for the Text
+    color = theme.title, // color for the Text
     // fontStyle = "normal",
     children, // to have the childrens
     fontFamily = fontObj.fontFamily, // font Family for the Text

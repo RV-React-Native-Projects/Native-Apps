@@ -1,17 +1,20 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
+import { ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
-import { useColorScheme } from "react-native";
 import { PaperProvider } from "react-native-paper";
-import { NativeBaseProvider } from "native-base";
+import { NativeBaseProvider, extendTheme } from "native-base";
 import { Provider as StoreProvider } from "react-redux";
-import store from "@redux/store";
+import store, { RootState } from "@redux/store";
+import {
+  DefaultTheme as NavigatiorLightTheme,
+  DarkTheme as NavigatiorDarkTheme,
+} from "@react-navigation/native";
+import {
+  MD3DarkTheme as PaperDarkTheme,
+  MD3LightTheme as PaperLightTheme,
+} from "react-native-paper";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -20,7 +23,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(tabs)",
+  // initialRouteName: "(tabs)",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -55,18 +58,31 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
+  const { theme, isDarkMode } = RootState.theme;
+
+  const paperTheme = isDarkMode ? PaperDarkTheme : PaperLightTheme;
+  const navigationTheme = isDarkMode
+    ? NavigatiorDarkTheme
+    : NavigatiorLightTheme;
+  const config = {
+    useSystemColorMode: true,
+    initialColorMode: isDarkMode ? "dark" : "light",
+  };
+  const nativeBaseTheme = extendTheme({ config });
 
   return (
     <StoreProvider store={store}>
-      <NativeBaseProvider>
-        <PaperProvider>
+      <NativeBaseProvider theme={nativeBaseTheme}>
+        <PaperProvider theme={paperTheme}>
           <ThemeProvider
-            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+            // value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+            value={navigationTheme}
           >
-            <Stack>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+            <Stack
+              screenOptions={{ headerShown: false }}
+              initialRouteName="index"
+            >
+              <Stack.Screen name="index" options={{}} />
             </Stack>
           </ThemeProvider>
         </PaperProvider>
