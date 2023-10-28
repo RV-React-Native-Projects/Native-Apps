@@ -1,0 +1,47 @@
+import React from "react";
+import { Text } from "react-native";
+import _ from "lodash";
+import { moderateScale } from "react-native-size-matters";
+import { useAppSelector } from "@redux/store";
+
+export default function AppText(props) {
+  const { theme } = useAppSelector((state) => state.theme);
+
+  const fs = Array.isArray(props?.style) ? props?.style : [props?.style];
+
+  const getFontObj = () => {
+    return _.get(theme, props?.fontStyle || "100.normal");
+  };
+
+  const fontObj = getFontObj();
+
+  const {
+    size = 14 || fontObj?.fontSize, // size of the Text
+    fontWeight = fontObj.fontWeight, // fontWeight of the Text
+    color = theme.black, // color for the Text
+    // fontStyle = "normal",
+    children, // to have the childrens
+    fontFamily = fontObj.fontFamily, // font Family for the Text
+    onPress, // function void()
+  } = props || {};
+
+  return (
+    <Text
+      {...props}
+      style={[
+        {
+          fontSize: moderateScale(size, 0.3),
+          fontWeight: fontWeight,
+          // fontStyle: fontStyle,
+          color: color,
+          fontFamily: fontFamily,
+          includeFontPadding: false,
+        },
+        ...fs,
+      ]}
+      onPress={onPress}
+    >
+      {children}
+    </Text>
+  );
+}

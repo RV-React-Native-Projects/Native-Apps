@@ -1,0 +1,174 @@
+{
+  "tracked_events": {
+    "app_opened": {
+      "category": "APP",
+      "action": "App_Opened",
+      "label": "App Opened 🎉"
+    },
+    "user_logged_in": {
+      "category": "APP",
+      "action": "login",
+      "label": "User Logged In 👍"
+    },
+    "user_logged_out": {
+      "category": "APP",
+      "action": "logout",
+      "label": "User logged out 👎"
+    },
+    "trip_filter_clicked": {
+      "category": "TRIP_FILTER",
+      "action": "clicked",
+      "label": "Top Filter Clicked"
+    },
+    "search_query": {
+      "category": "SERACH",
+      "action": "clicked",
+      "label": "Serach Changed"
+    },
+    "floating_filter_clicked": {
+      "category": "FILTER",
+      "action": "clicked",
+      "label": "Filter Changed"
+    },
+    "goto_profile": {
+      "category": "PROFILE",
+      "action": "clicked",
+      "label": "Navigated to Profile 👨‍🚒"
+    },
+    "goto_notification": {
+      "category": "NAVIGATION",
+      "action": "notification",
+      "label": "Navigated to Notification 🔔"
+    },
+    "clicked_notification": {
+      "category": "NAVIGATION",
+      "action": "notification_clicked",
+      "label": "Clicked Notification => 🔔"
+    },
+    "goto_Details": {
+      "category": "TRIP",
+      "action": "trip_opened",
+      "label": "Navigated to Trip_Details 🚗"
+    },
+    "view_document": {
+      "category": "TRIP_DOCUMENT",
+      "action": "trip_document_page",
+      "label": "Navigated to Trip_Document 📄"
+    },
+    "vehicle_document": {
+      "category": "VEHICLE_DOCUMENT",
+      "action": "vehicle_document_page",
+      "label": "Navigated to Vehicle_Document 📄"
+    },
+    "trip_complete": {
+      "category": "TRIP_COMPLETE",
+      "action": "trip_complete_page",
+      "label": "Navigated to Trip_Complete"
+    },
+    "trip_completed": {
+      "category": "TRIP_COMPLETED",
+      "action": "trip_completed",
+      "label": "Trip Completed ✅"
+    },
+    "pod_opened": {
+      "category": "POD_OPENED",
+      "action": "pod-opened",
+      "label": "Navigated to Mark_PoD 📄"
+    },
+    "pod_completed": {
+      "category": "POD_Completed",
+      "action": "pod-completed",
+      "label": "Mark PoD Completed ✅"
+    },
+    "doc_upload": {
+      "category": "DOC_UPLOAD",
+      "action": "doc_upload_opened",
+      "label": "Navigated to Trip_Upload_Document 🎉"
+    },
+    "doc_uploaded": {
+      "category": "DOC_UPLOADED",
+      "action": "doc_uploaded",
+      "label": "Trip Document Uploaded ✅"
+    },
+    "attendance_clicked": {
+      "category": "ATTENDANCE",
+      "action": "attendance_clicked",
+      "label": "Navigated to Attendance Tab 🎉"
+    },
+    "attendance_filter_clicked": {
+      "category": "ATTENDANCE",
+      "action": "attendance_filter_clicked",
+      "label": "Navigated to Attendance Filter Page 📄"
+    },
+    "attendance_filter_changed": {
+      "category": "ATTENDANCE",
+      "action": "attendance_filter_changed",
+      "label": "Changed Attendance Filter ✅"
+    },
+    "clicked_today": {
+      "category": "ATTENDANCE",
+      "action": "clicked_today",
+      "label": "Clicked on Today ✅"
+    },
+    "clicked_date": {
+      "category": "ATTENDANCE",
+      "action": "clicked_date",
+      "label": "Clicked On date 📄"
+    },
+    "clicked_attendance_details": {
+      "category": "ATTENDANCE",
+      "action": "clicked_attendance_details",
+      "label": "Clicked On Attendance Details 📄"
+    },
+    "clicked_map": {
+      "category": "ATTENDANCE",
+      "action": "clicked_map",
+      "label": "Clicked On Map ✅"
+    },
+    "clicked_punch": {
+      "category": "ATTENDANCE",
+      "action": "clicked_punch",
+      "label": "Clicked to Punch in/out 🎉"
+    },
+    "attendance_in": {
+      "category": "ATTENDANCE",
+      "action": "attendance_in",
+      "label": "Punch IN 🎉"
+    },
+    "attendance_out": {
+      "category": "ATTENDANCE",
+      "action": "attendance_in",
+      "label": "Punch OUT 👎"
+    },
+    "clicked_tripexpense": {
+      "category": "TRIP_EXPENSE",
+      "action": "clicked_tripexpense",
+      "label": "Navigated to Trip Expense Page 📄"
+    },
+    "created_tripexpense": {
+      "category": "TRIP_EXPENSE",
+      "action": "created_tripexpense",
+      "label": "Created Trip Expense 👍"
+    },
+    "edited_tripexpense": {
+      "category": "TRIP_EXPENSE",
+      "action": "edited_tripexpense",
+      "label": "EDITED Trip Expense 👍"
+    },
+    "deleted_tripexpense": {
+      "category": "TRIP_EXPENSE",
+      "action": "deleted_tripexpense",
+      "label": "DELETED Trip Expense 👍"
+    },
+    "added_party": {
+      "category": "TRIP_EXPENSE",
+      "action": "added_party",
+      "label": "Added New Party 🎉"
+    },
+    "added_expense": {
+      "category": "TRIP_EXPENSE",
+      "action": "added_expense",
+      "label": "Added New Expense Type 🎉"
+    }
+  }
+}

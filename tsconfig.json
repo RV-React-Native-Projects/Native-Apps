@@ -2,11 +2,30 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "paths": {
+      // "@/*": ["./*"],
+      "@assets/*": ["/assets/*"],
+      "@appConfig": ["./app.json"],
+      "@config": ["./Config.json"],
+      "@cards/*": ["./cards/*"],
+      "@common/*": ["./common/*"],
+      "@components/*": ["./components/*"],
+      "@constants/*": ["./constants/*"],
+      "@contexts/*": ["./contexts/*"],
+      "@helpers/*": ["./helpers/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@navigation/*": ["./navigation/*"],
+      "@screens_components/*": ["./screens_components/*"],
+      "@screens/*": ["./screens/*"],
+      "@skeltons/*": ["./skeltons/*"],
+      "@services/*": ["./services/*"],
+      "@features/*": ["./services/features/*"],
+      "@global/*": ["./services/global/*"],
+      "@reducers/*": ["./redux/reducers/*"],
+      "@redux/*": ["./redux/*"]
+    }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }
