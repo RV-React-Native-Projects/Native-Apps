@@ -6,11 +6,12 @@ import AppButton from "@components/Button/AppButton";
 import { useAppSelector } from "@redux/store";
 
 interface PopularJobsTypes {
-  onPress?: () => void;
+  onPressShowAll?: () => void;
+  onPressCard?: () => void;
 }
 
 export default function PopularJobs(props: PopularJobsTypes) {
-  const { onPress } = props;
+  const { onPressShowAll, onPressCard } = props;
   const { theme } = useAppSelector((state: any) => state.theme);
   return (
     <View>
@@ -30,7 +31,7 @@ export default function PopularJobs(props: PopularJobsTypes) {
           Title="show all"
           fontSize={16}
           fontStyle="400.normal"
-          onPress={onPress}
+          onPress={onPressShowAll}
           color={theme.primary}
         />
       </View>

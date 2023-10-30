@@ -261,6 +261,16 @@ const Utils = function (ErrorConstants: any) {
   function toThreeDecimalValue(text: string) {
     return text.replace(/[^0-9.]/g, "").replace(/(\.\d{0,3}).*/g, "$1");
   }
+  const checkImageURL = (url: string) => {
+    if (!url) return false;
+    else {
+      const pattern = new RegExp(
+        "^https?:\\/\\/.+\\.(png|jpg|jpeg|bmp|gif|webp)$",
+        "i"
+      );
+      return pattern.test(url);
+    }
+  };
 
   return {
     ErrorObject: ErrorObject,
@@ -289,6 +299,7 @@ const Utils = function (ErrorConstants: any) {
     generateNumericUniqueID,
     generateUniqueID,
     toThreeDecimalValue,
+    checkImageURL,
   };
 };
 
