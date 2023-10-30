@@ -3,8 +3,40 @@ import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import AppText from "@components/Text/AppText";
 import { useAppSelector } from "@redux/store";
 
-export default function Avatar(props) {
-  const { theme } = useAppSelector((state) => state.theme);
+interface AvatarTypes {
+  picUrl?: string;
+  size?: number;
+  label?: string;
+  backgroundColor?: string;
+  initials?: string;
+  textSize?: number;
+  outlined?: boolean;
+  labelColor?: string;
+  dashed?: boolean;
+  dotted?: boolean;
+  borderColor?: string;
+  onPress?: () => void;
+  icon?: React.ReactNode;
+}
+
+export default function Avatar(props: AvatarTypes) {
+  const { theme } = useAppSelector((state: any) => state.theme);
+
+  const isOutlined: boolean = props?.outlined as boolean;
+  const isDashed: boolean = props?.dashed as boolean;
+  const isDotted: boolean = props?.dotted as boolean;
+  const finalbackgroundColor: string = isOutlined
+    ? "transparent"
+    : props?.backgroundColor || "#C4421A";
+  const finalborderStyle: string | null =
+    isOutlined && isDashed
+      ? "dashed"
+      : isOutlined && isDotted
+      ? "dotted"
+      : isOutlined
+      ? "solid"
+      : null;
+
   const {
     picUrl,
     size = 40,
@@ -13,7 +45,7 @@ export default function Avatar(props) {
     initials,
     textSize = 20,
     outlined = false,
-    labelColor = outlined ? theme.primary : theme.white,
+    labelColor = isOutlined ? theme.primary : theme.white,
     dashed,
     dotted,
     borderColor = theme.primary,
@@ -21,7 +53,7 @@ export default function Avatar(props) {
     icon,
   } = props || {};
 
-  let URL = picUrl;
+  let URL: any = picUrl;
   if (typeof URL === "string") {
     URL = { uri: picUrl };
   } else {
@@ -51,18 +83,18 @@ export default function Avatar(props) {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: outlined
+            backgroundColor: isOutlined
               ? "transparent"
               : backgroundColor || "#C4421A",
-            borderWidth: outlined ? 1 : 0,
+            borderWidth: isOutlined ? 1 : 0,
             borderStyle:
-              outlined && dashed
+              isOutlined && isDashed
                 ? "dashed"
-                : outlined && dotted
+                : isOutlined && isDotted
                 ? "dotted"
-                : outlined
+                : isOutlined
                 ? "solid"
-                : null,
+                : "solid",
             borderColor: borderColor || "#000",
           }}
         >
@@ -77,7 +109,7 @@ export default function Avatar(props) {
               borderRadius: size,
               alignItems: "center",
               justifyContent: "center",
-              borderWidth: outlined ? 1 : 0,
+              borderWidth: isOutlined ? 1 : 0,
               borderStyle:
                 outlined && dashed
                   ? "dashed"
@@ -85,7 +117,7 @@ export default function Avatar(props) {
                   ? "dotted"
                   : outlined
                   ? "solid"
-                  : null,
+                  : "solid",
               borderColor: borderColor || "#000",
               backgroundColor: outlined
                 ? "transparent"

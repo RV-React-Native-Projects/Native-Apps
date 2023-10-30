@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TextInputProps, View } from "react-native";
 import React, { memo } from "react";
 import { Pressable } from "react-native";
 import TextInputRNP from "./TextInputRNP";
@@ -8,27 +8,39 @@ import { moderateScale } from "react-native-size-matters";
 import svgs from "@common/All_Svgs";
 import theme from "@common/Theme";
 
-function TextInputDropDown(props) {
+interface TextInputDropDownTypes extends TextInputProps {
+  value?: string;
+  editable?: boolean;
+  disabled?: boolean;
+  label?: string;
+  placeholder?: string;
+  labelSize?: number;
+  onPress?: () => void;
+}
+
+function TextInputDropDown(props: TextInputDropDownTypes) {
   const {
-    value = null,
+    value = "",
     editable = false,
     disabled = false,
     label = "Lable",
     placeholder = "Placeholder",
     labelSize = 14,
     onPress,
+    ...rest
   } = props || {};
 
   return (
     <Pressable onPress={onPress}>
-      <TextInputRNP
+      {/* <TextInputRNP
+        // {...rest}
         {...props}
         value={value}
         editable={editable}
         disabled={disabled}
         label={label}
         placeholder={placeholder}
-        labelSize={labelSize}
+        // labelSize={labelSize}
         right={
           <TextInput.Icon
             icon={() => (
@@ -47,11 +59,11 @@ function TextInputDropDown(props) {
             size={moderateScale(30, 0.3)}
           />
         }
-        forceTextInputFocus={true}
+        // forceTextInputFocus={true}
 
         // onFocus={() => showDateTimepicker()}
         // onBlur={() => setShow(false)}
-      />
+      /> */}
     </Pressable>
   );
 }

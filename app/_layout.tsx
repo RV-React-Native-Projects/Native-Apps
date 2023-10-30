@@ -1,3 +1,5 @@
+import React from "react";
+// import "@common/i18nConfig";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
@@ -15,6 +17,7 @@ import {
   MD3DarkTheme as PaperDarkTheme,
   MD3LightTheme as PaperLightTheme,
 } from "react-native-paper";
+import { MessagesContextProvider } from "../contexts/MessageContext";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -78,12 +81,14 @@ function RootLayoutNav() {
             // value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
             value={navigationTheme}
           >
-            <Stack
-              screenOptions={{ headerShown: false }}
-              initialRouteName="index"
-            >
-              <Stack.Screen name="index" options={{}} />
-            </Stack>
+            <MessagesContextProvider>
+              <Stack
+                screenOptions={{ headerShown: false }}
+                initialRouteName="index"
+              >
+                <Stack.Screen name="index" options={{}} />
+              </Stack>
+            </MessagesContextProvider>
           </ThemeProvider>
         </PaperProvider>
       </NativeBaseProvider>

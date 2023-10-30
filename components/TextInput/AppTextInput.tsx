@@ -1,10 +1,45 @@
 import React, { useContext } from "react";
-import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  TouchableOpacity,
+  TextInputProps,
+} from "react-native";
 import ThemeContext from "@contexts/ThemeContext";
 import AppText from "@components/Text/AppText";
 import { moderateScale } from "react-native-size-matters";
 
-export default function AppTextInput(props) {
+interface AppTextInputTypes extends TextInputProps {
+  label?: string;
+  labelSize?: number;
+  error?: boolean;
+  errorMessage?: string;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  disabled?: boolean;
+  placeholder?: string;
+  onChangeText?: (text: string) => void;
+  selectionColor?: string;
+  value?: string;
+  activeOutlineColor?: string;
+  multiline?: boolean;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  editable?: boolean;
+  height?: number;
+  backgroundColor?: string;
+  styles?: object;
+  autoFocus?: boolean;
+  secureTextEntry?: boolean;
+  focused?: boolean;
+  borderRadius?: number;
+  onPressLeftIcon?: () => void;
+  onPressRightIcon?: () => void;
+  containerStyle?: object;
+}
+
+export default function AppTextInput(props: AppTextInputTypes) {
   const { theme, svgs } = useContext(ThemeContext);
   const {
     label = "Label", // lable for the Text Input

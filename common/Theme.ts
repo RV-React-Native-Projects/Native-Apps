@@ -175,7 +175,7 @@ const fontVariations = {
 
 const Colors = {
   // Main Colors
-  primary: "#0283E5",
+  primary: "#2f95dc",
   primaryLight: "#88C5FE",
   secondary: "#07C060",
   secondaryLight: "#CEFFCD",

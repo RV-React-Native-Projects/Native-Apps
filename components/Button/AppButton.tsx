@@ -1,51 +1,98 @@
-import { View, TouchableOpacity } from "react-native";
 import React from "react";
+import { View, TouchableOpacity, ButtonProps } from "react-native";
 import ActivityIndicator from "@components/ActivityIndicator/ActivityIndicator";
 import AppText from "@components/Text/AppText";
 import _ from "lodash";
 import { moderateScale } from "react-native-size-matters";
 import { useAppSelector } from "@redux/store";
 
-export function Icon({ icon, styles }) {
+interface AppButtonType {
+  onPress?: () => void;
+  disabled?: boolean;
+  disabledBackgroundColor?: string;
+  Title?: string;
+  fontStyle?: string;
+  Outlined?: boolean;
+  color?: string;
+  LinkButton?: boolean;
+  textColor?: string;
+  fontWeight?: string;
+  height?: number;
+  width?: string | null;
+  fontSize?: number;
+  rounded?: boolean;
+  borderRadius?: number;
+  borderWidth?: number;
+  borderColor?: string;
+  textStyle?: object;
+  leftIcon?: React.ReactNode;
+  IcontoEnd?: boolean;
+  rightIcon?: React.ReactNode;
+  Dotted?: boolean;
+  Dashed?: boolean;
+  borderStyle?: "dotted" | "dashed" | "solid";
+  loading?: boolean;
+  indicatorBackgroundColor?: string;
+  indicatorColor?: string;
+  style?: object;
+  extraStyle?: object | object[];
+  size?: number;
+  activeOpacity?: number;
+}
+
+export function Icon({
+  icon,
+  styles,
+}: {
+  icon: React.ReactNode;
+  styles: object;
+}) {
   return <>{icon ? <View style={{ ...styles }}>{icon}</View> : null}</>;
 }
 
-const getButtonObj = (theme, type) => {
+const getButtonObj = (theme: object, type: number) => {
   return _.get(theme, type);
 };
-const getStyleObject = (theme, button) => {
+const getStyleObject = (theme: object, button: string) => {
   return _.get(theme, button);
 };
 
-export default function AppButton(props) {
-  const { theme } = useAppSelector((state) => state.theme);
+export default function AppButton(props: AppButtonType) {
+  const { theme } = useAppSelector((state: any) => state.theme);
+
+  const isOutlined: boolean = props?.Outlined as boolean;
+  const isLinkButton: boolean = props?.LinkButton as boolean;
+  const isRounded: boolean = props?.rounded as boolean;
+  const isDotted: boolean = props?.Dotted as boolean;
+  const isDashed: boolean = props?.Dashed as boolean;
 
   const {
     onPress,
     disabled = false,
     disabledBackgroundColor,
     Title = "Button",
-    Outlined,
+    Outlined = false,
     color = theme.primary,
-    LinkButton,
+    LinkButton = false,
     textColor = theme.primaryButtonText,
+    fontStyle = "600.semibold",
     fontWeight = "600",
     height = 40,
-    width = LinkButton ? null : "100%",
+    width = isLinkButton ? null : "100%",
     fontSize = 18,
-    rounded,
-    borderRadius = rounded ? 50 : 3,
+    rounded = false,
+    borderRadius = isRounded ? 50 : 3,
     borderWidth = 1,
-    borderColor = color,
+    borderColor = color as string,
     textStyle,
     leftIcon,
     IcontoEnd,
     rightIcon,
     Dotted,
     Dashed,
-    borderStyle = Outlined && Dotted
+    borderStyle = isOutlined && isDotted
       ? "dotted"
-      : Outlined && Dashed
+      : isOutlined && isDashed
       ? "dashed"
       : "solid",
     loading = false,
@@ -53,7 +100,7 @@ export default function AppButton(props) {
     indicatorColor = theme.white,
     style,
     extraStyle,
-    size = height,
+    size = height as number,
     activeOpacity = 0.8,
   } = props || {};
 
@@ -103,7 +150,7 @@ export default function AppButton(props) {
                   textTransform: "capitalize",
                   ...textStyle,
                 }}
-                fontStyle={props.fontStyle || "600.semibold"}
+                fontStyle={fontStyle}
               >
                 {Title}
               </AppText>
@@ -157,7 +204,7 @@ export default function AppButton(props) {
                   ...textStyle,
                 }}
                 numberOfLines={1}
-                fontStyle={props.fontStyle || "600.semibold"}
+                fontStyle={fontStyle}
               >
                 {Title}
               </AppText>

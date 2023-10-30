@@ -1,11 +1,28 @@
 import React from "react";
 import { Alert, Image, TouchableOpacity, View } from "react-native";
-import AppText from "../Text/AppText";
-import svgs from "../../assets/AllSvgs";
+import AppText from "@components/Text/AppText";
+import svgs from "@common/All_Svgs";
 import { useAppSelector } from "@redux/store";
 
-export default function Chips(props) {
-  const { theme } = useAppSelector((state) => state.theme);
+interface ChipTypes {
+  title?: string;
+  picUrl?: any;
+  active?: boolean;
+  activeBackground?: string;
+  ActiveTextColor?: string;
+  outlined?: boolean;
+  onPress?: () => void;
+  fontFamily?: string;
+  fontSize?: number;
+  close?: boolean;
+  backgroundColor?: string;
+  dashed?: boolean;
+  dotted?: boolean;
+  disabled?: boolean;
+}
+
+export default function Chips(props: ChipTypes) {
+  const { theme } = useAppSelector((state: any) => state.theme);
   const {
     title = "Title You Like to Have",
     picUrl,
@@ -23,7 +40,7 @@ export default function Chips(props) {
     disabled = false,
   } = props || {};
 
-  let URL = picUrl;
+  let URL: any = picUrl;
   if (typeof URL === "string") {
     URL = { uri: picUrl };
   } else {
