@@ -1,5 +1,13 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import {
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useState } from "react";
 import AppText from "@components/Text/AppText";
 import {
   AntDesign,
@@ -10,14 +18,24 @@ import { useAppSelector } from "@redux/store";
 import AppContainer from "@components/Container/AppContainer";
 import LoadingContainer from "@components/Container/LoadingContainer";
 import AppButton from "@components/Button/AppButton";
-import AppCheckBox from "@components/CheckBox/AppCheckBox";
 import I18n from "i18n-js";
+import AppTextInput from "@components/TextInput/AppTextInput";
+import { VerticalSpacing } from "@components/Spacing/Spacing";
+import _ from "lodash";
+import { useRouter } from "expo-router";
+import PopularJobs from "@components/Jobs/PopularJobs";
+
+const { height: windowHeight, width: windowWidth } = Dimensions.get("screen");
+
+const jobTypes = ["Full-Time", "Part-Time", "Contract"];
 
 export default function index() {
+  const router = useRouter();
   const { theme } = useAppSelector((state: any) => state.theme);
+  const [selecteJobType, setSelecteJobType] = useState<string>("Full-Time");
   return (
     <AppContainer scrollable={false}>
-      <LoadingContainer>
+      <LoadingContainer bgColor={theme.modalBackgroundColor}>
         <View>
           <View
             style={{
@@ -49,9 +67,84 @@ export default function index() {
             >
               Hello Ranvijay!
             </AppText>
-            <AppText style={{ paddingTop: 10 }} size={20} fontStyle="600.bold">
+            <AppText style={{ paddingTop: 10 }} size={24} fontStyle="600.bold">
               {I18n.t("screen_messages.find_job")}
             </AppText>
+          </View>
+          <VerticalSpacing size={15} />
+          <View
+            style={{
+              width: "100%",
+              flexDirection: "row",
+              alignItems: "center",
+              marginHorizontal: 10,
+              height: 50,
+              // justifyContent: "space-between",
+            }}
+          >
+            <AppTextInput
+              placeholder="Serach for Job"
+              activeOutlineColor={theme.gray}
+              borderRadius={0}
+              containerStyle={{
+                width: windowWidth - 70,
+                borderTopLeftRadius: 10,
+                borderBottomLeftRadius: 10,
+              }}
+            />
+            <TouchableOpacity
+              style={{
+                marginLeft: 2,
+                backgroundColor: theme.primary,
+                width: 50,
+                height: 52,
+                alignItems: "center",
+                justifyContent: "center",
+                borderTopRightRadius: 10,
+                borderBottomRightRadius: 10,
+              }}
+              activeOpacity={0.7}
+              onPress={() => {}}
+            >
+              <AntDesign name="search1" size={24} color={theme.white} />
+            </TouchableOpacity>
+          </View>
+          {/* ============= Job Types ========== */}
+          <VerticalSpacing size={10} />
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={{ padding: 10, paddingHorizontal: 15 }}
+            contentContainerStyle={{ columnGap: 5 }}
+          >
+            {_.map(jobTypes, (item, index) => (
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => {
+                  setSelecteJobType(item);
+                  router.push(`/search/${item}`);
+                }}
+                style={{
+                  padding: 8,
+                  paddingHorizontal: 10,
+                  borderWidth: 1,
+                  borderColor:
+                    selecteJobType !== item ? theme.gray : theme.primary,
+                  borderRadius: 30,
+                }}
+              >
+                <AppText
+                  color={selecteJobType !== item ? theme.gray : theme.primary}
+                >
+                  {item}
+                </AppText>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+          <VerticalSpacing size={10} />
+          {/* ============= POP jobs ============= */}
+          <View>
+            <PopularJobs />
           </View>
         </View>
       </LoadingContainer>
