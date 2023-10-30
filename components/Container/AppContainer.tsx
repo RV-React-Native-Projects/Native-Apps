@@ -5,6 +5,7 @@ import {
   ScrollView,
   Dimensions,
   Platform,
+  StatusBarProps,
 } from "react-native";
 import { KeyboardAvoidingView } from "native-base";
 import {
@@ -13,10 +14,24 @@ import {
 } from "react-native-safe-area-context";
 import { useAppSelector } from "@redux/store";
 
-const { windowHieght } = Dimensions.get("screen").height;
+const { height: windowHeight } = Dimensions.get("screen");
 
-function AppContainer(props) {
-  const { theme, isDarkMode } = useAppSelector((state) => state.theme);
+interface AppContainerTypes extends StatusBarProps {
+  children?: React.ReactNode;
+  statusBarColor?: string;
+  barStyle?: "light-content" | "dark-content" | "default";
+  hidden?: boolean;
+  translucent?: boolean;
+  hideStatusbar?: boolean;
+  style?: object;
+  ContainerStyle?: object;
+  scrollable?: boolean;
+  KeyboardAvoidingViewBehavior?: "height" | "padding" | "position" | undefined;
+  showHideTransition?: "slide" | "fade" | "none";
+}
+
+function AppContainer(props: AppContainerTypes) {
+  const { theme, isDarkMode } = useAppSelector((state: any) => state.theme);
 
   const {
     children,
@@ -28,11 +43,12 @@ function AppContainer(props) {
     style,
     ContainerStyle,
     scrollable = true,
-    KeyboardAvoidingViewBehavior = "none",
+    KeyboardAvoidingViewBehavior = undefined,
+    showHideTransition = "slide",
   } = props || {};
   const insets = useSafeAreaInsets();
 
-  var isIOS = Platform.OS === "ios";
+  var isIOS: boolean = Platform.OS === "ios";
 
   return (
     <KeyboardAvoidingView
@@ -49,10 +65,10 @@ function AppContainer(props) {
         >
           <StatusBar
             barStyle={barStyle}
-            StatusBarStyle={barStyle}
+            networkActivityIndicatorVisible={true}
             backgroundColor={statusBarColor}
             animated={true}
-            StatusBarAnimation="slide"
+            showHideTransition={showHideTransition}
             hidden={hidden}
             translucent={translucent}
           />
@@ -60,7 +76,7 @@ function AppContainer(props) {
       )}
       {scrollable ? (
         <ScrollView
-          style={{ flex: 1, minHeight: windowHieght, ...style }}
+          style={{ flex: 1, minHeight: windowHeight, ...style }}
           contentContainerStyle={{ paddingBottom: 150, ...ContainerStyle }}
         >
           {hideStatusbar ? (
@@ -75,10 +91,9 @@ function AppContainer(props) {
         <>
           <StatusBar
             barStyle="default"
-            StatusBarStyle="default"
             backgroundColor="transparent"
             animated={true}
-            StatusBarAnimation="slide"
+            showHideTransition={showHideTransition}
             hidden={false}
             translucent={true}
           />

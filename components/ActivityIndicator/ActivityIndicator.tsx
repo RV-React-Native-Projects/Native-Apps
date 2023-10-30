@@ -3,14 +3,23 @@ import React, { useContext } from "react";
 import { ActivityIndicator as Indicator } from "react-native-paper";
 import { useAppSelector } from "@redux/store";
 
-export default function ActivityIndicator(props) {
-  const { theme } = useAppSelector((state) => state.theme);
+interface ActivityIndicatortypes {
+  backgroundColor?: string;
+  indicatorColor?: string;
+  indicatorSize?: "small" | "large";
+  size?: number;
+}
+
+export default function ActivityIndicator(props: ActivityIndicatortypes) {
+  const { theme } = useAppSelector((state: any) => state.theme);
+
+  const isLarge: boolean = props?.indicatorSize === "large";
 
   const {
     backgroundColor = theme.primary,
     indicatorColor = theme.secondary,
     indicatorSize = "small",
-    size = indicatorSize === "large" ? 70 : 40,
+    size = isLarge ? 70 : 40,
   } = props || {};
 
   return (

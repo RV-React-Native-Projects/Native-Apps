@@ -3,15 +3,15 @@ import { Platform, Alert } from "react-native";
 import I18n from "i18n-js";
 
 export const appAlert = (
-  title,
+  title: string,
   message = "",
-  buttons = [
+  buttons: any = [
     {
       text: "ok",
       style: "cancel",
     },
   ],
-  isCancelable = true,
+  isCancelable = true
 ) => {
   if (Platform.OS != "web") {
     Alert.alert(title, message, [...buttons], { cancelable: isCancelable });
@@ -20,11 +20,11 @@ export const appAlert = (
   }
 };
 export const prestoConfirm = (
-  title,
-  message,
-  buttons,
-  isCancelable,
-  callBack,
+  title: string,
+  message: string,
+  buttons: any,
+  isCancelable: boolean,
+  callBack: (fn: any) => void
 ) => {
   if (Platform.OS != "web") {
     Alert.alert(title, message, [...buttons], { cancelable: isCancelable });
@@ -34,11 +34,11 @@ export const prestoConfirm = (
 };
 
 export const AsyncAlert = async (
-  title,
-  message,
-  successTitle,
-  cancelTitle,
-  isCancelable,
+  title: string,
+  message: string,
+  successTitle: string,
+  cancelTitle: string,
+  isCancelable: boolean
 ) =>
   new Promise((resolve) => {
     Alert.alert(
@@ -57,11 +57,11 @@ export const AsyncAlert = async (
           style: "cancel",
         },
       ],
-      { cancelable: isCancelable },
+      { cancelable: isCancelable }
     );
   });
 
-export const alertBox = (title, message = "") =>
+export const alertBox = (title: string, message: string = "") =>
   appAlert(
     title,
     message,
@@ -71,5 +71,5 @@ export const alertBox = (title, message = "") =>
         style: "cancel",
       },
     ],
-    false,
+    false
   );

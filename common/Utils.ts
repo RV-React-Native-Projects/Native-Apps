@@ -1,9 +1,9 @@
 import { Platform } from "react-native";
-import ErrorConstants from "../common/ErrorConstant";
+import ErrorConstants from "./ErrorConstant";
 import _ from "lodash";
 // import * as geolib from "geolib";
 
-const Utils = function (ErrorConstants) {
+const Utils = function (ErrorConstants: any) {
   /**
    * @ngdoc
    * @name Common.Utils#ErrorObject
@@ -13,15 +13,25 @@ const Utils = function (ErrorConstants) {
    * @param {boolean} success - true/false
    * @returns {ErrorObject} - error object containing success/fail status, error code and error message
    */
-  function ErrorObject(errorCode, success) {
-    var errorObject = {};
+
+  interface errorCodeTypes {
+    success?: boolean;
+    code?: number;
+    message?: string;
+  }
+  interface errortypes {
+    errorCode?: number | any;
+    success?: boolean;
+  }
+  function ErrorObject(errorCode: number, success: boolean) {
+    var errorObject: any = {};
     errorObject.success = success;
     errorObject.code = errorCode;
     errorObject.message = ErrorConstants.ErrorMessages[errorCode];
     return errorObject;
   }
 
-  function updateErrorObject(errorObject) {
+  function updateErrorObject(errorObject: any) {
     if (errorObject) {
       if (errorObject.data) {
         errorObject = errorObject.data;
@@ -42,7 +52,7 @@ const Utils = function (ErrorConstants) {
     return errorObject;
   }
 
-  function isValidEmail(email) {
+  function isValidEmail(email: string) {
     var emailPattern =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (email) {
@@ -52,7 +62,7 @@ const Utils = function (ErrorConstants) {
     }
   }
 
-  function isValidPhoneNumber(phoneNumber) {
+  function isValidPhoneNumber(phoneNumber: string) {
     var digitsPattern = /^\d+$/;
     if (phoneNumber) {
       return digitsPattern.test(phoneNumber); // returns a boolean
@@ -61,7 +71,7 @@ const Utils = function (ErrorConstants) {
     }
   }
 
-  function isValidPassword(password) {
+  function isValidPassword(password: string) {
     if (password && password.length >= 6 && password.length <= 20) {
       return true;
     } else {
@@ -78,11 +88,11 @@ const Utils = function (ErrorConstants) {
    * @param {constructor} Constructor to match it's type with that of object's type
    * @returns {boolean} true if object is of constructor's type, otherwise false
    */
-  function instanceOf(object, constructor) {
+  function instanceOf(object: object, constructor: any) {
     return object instanceof constructor;
   }
 
-  function isEmpty(stringObj) {
+  function isEmpty(stringObj: any) {
     if (!stringObj || null == stringObj || "" == stringObj) {
       return true;
     } else {
@@ -90,7 +100,7 @@ const Utils = function (ErrorConstants) {
     }
   }
 
-  function getSearchType(text) {
+  function getSearchType(text: string) {
     let type = "name";
     if (isValidEmail(text)) {
       type = "email";
@@ -100,7 +110,7 @@ const Utils = function (ErrorConstants) {
     return type;
   }
 
-  function isSameDate(date1, date2) {
+  function isSameDate(date1: any, date2: any) {
     if (
       date1.getDate() == date2.getDate() &&
       date1.getMonth() == date2.getMonth() &&
@@ -112,11 +122,11 @@ const Utils = function (ErrorConstants) {
     }
   }
 
-  function convertRupeeToPaisa(rupee) {
+  function convertRupeeToPaisa(rupee: number) {
     return Math.round(rupee * 100);
   }
 
-  function isOfTypeString(obj) {
+  function isOfTypeString(obj: any) {
     if (obj && (typeof obj === "string" || obj instanceof String)) {
       return true;
     } else {
@@ -124,7 +134,7 @@ const Utils = function (ErrorConstants) {
     }
   }
 
-  function getDateTimeDifference(date1, date2) {
+  function getDateTimeDifference(date1: any, date2: any) {
     let diff = 0;
     try {
       diff = Math.abs(date1.getTime() - date2.getTime());
@@ -134,21 +144,21 @@ const Utils = function (ErrorConstants) {
     return diff;
   }
 
-  function getDateTimeDifferenceInHours(date1, date2) {
+  function getDateTimeDifferenceInHours(date1: any, date2: any) {
     return getDateTimeDifference(date1, date2) / 1000 / 3600;
   }
 
-  function getDateTimeDifferenceInMinutes(date1, date2) {
+  function getDateTimeDifferenceInMinutes(date1: any, date2: any) {
     return Math.floor(getDateTimeDifference(date1, date2) / 1000 / 60);
   }
 
-  function getDateTimeDifferenceInHoursAndMinutes(date1, date2) {
-    let mins = getDateTimeDifferenceInMinutes(date1, date2);
+  function getDateTimeDifferenceInHoursAndMinutes(date1: any, date2: any) {
+    let mins: any = getDateTimeDifferenceInMinutes(date1, date2);
     mins = mins.toString().replace(".", ":");
     return mins;
   }
 
-  function formateMinutesToHours(minutes) {
+  function formateMinutesToHours(minutes: number) {
     let d = new Date();
     d.setHours(0);
     d.setMinutes(0);
@@ -161,7 +171,7 @@ const Utils = function (ErrorConstants) {
     return date_string;
   }
 
-  function isInteger(num) {
+  function isInteger(num: string) {
     let isInt = false;
 
     if (!containsAlphabetsAndSpecialCharacters(num)) {
@@ -172,7 +182,7 @@ const Utils = function (ErrorConstants) {
     return isInt;
   }
 
-  function containsAlphabetsAndSpecialCharacters(str) {
+  function containsAlphabetsAndSpecialCharacters(str: string) {
     const format = /[ A-Za-z`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
     let contains = format.test(str);
     return contains;
@@ -183,7 +193,7 @@ const Utils = function (ErrorConstants) {
     lng = "77.666512",
     lable = "Location",
     startlat = "0",
-    startlng = "0",
+    startlng = "0"
   ) {
     // const scheme = Platform.OS === "android" ? "geo:0,0?q=" : "maps:0,0?q=";
     const scheme =
@@ -209,14 +219,14 @@ const Utils = function (ErrorConstants) {
    * @description returns object result
    * @returns {string} uri result
    */
-  function queryStringParser(query) {
+  function queryStringParser(query: string) {
     var parser = /([^=?#&]+)=?([^&]*)/g,
       result = {},
       part;
 
     while ((part = parser.exec(query))) {
-      var key = decodeUrl(part[1]),
-        value = decodeUrl(part[2]);
+      var key = decodeURI(part[1]),
+        value = decodeURI(part[2]);
 
       if (key === null || value === null || key in result) continue;
       result[key] = value;
@@ -225,12 +235,12 @@ const Utils = function (ErrorConstants) {
     return result;
   }
 
-  const getFilename = (url) => {
+  const getFilename = (url: string) => {
     var filename = url.substring(url.lastIndexOf("/") + 1, url.length);
     return filename;
   };
 
-  const generateNumericUniqueID = (digits) => {
+  const generateNumericUniqueID = (digits: number) => {
     let str = "0123456789";
     let uuid = [];
     for (let i = 0; i < digits; i++) {
@@ -239,7 +249,7 @@ const Utils = function (ErrorConstants) {
     return uuid.join("");
   };
 
-  const generateUniqueID = (digits) => {
+  const generateUniqueID = (digits: number) => {
     let str = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXZ";
     let uuid = [];
     for (let i = 0; i < digits; i++) {
@@ -248,7 +258,7 @@ const Utils = function (ErrorConstants) {
     return uuid.join("");
   };
 
-  function toThreeDecimalValue(text) {
+  function toThreeDecimalValue(text: string) {
     return text.replace(/[^0-9.]/g, "").replace(/(\.\d{0,3}).*/g, "$1");
   }
 

@@ -1,11 +1,39 @@
 import React, { useState } from "react";
-import { TextInput } from "react-native-paper";
+import { TextInput, TextInputProps } from "react-native-paper";
 import theme from "@common/Theme";
 import AppText from "@components/Text/AppText";
 import { moderateScale } from "react-native-size-matters";
 import I18n from "i18n-js";
 
-export default function TextInputRNP(props) {
+interface TextInputRNPTypes extends TextInputProps {
+  label?: string | undefined;
+  Outlined?: boolean;
+  error?: boolean;
+  left?: any; // Define the type for left according to your use case
+  right?: any; // Define the type for right according to your use case
+  disabled?: boolean;
+  placeholder?: string;
+  errormsg?: string;
+  onChangeText?: (text: string) => void;
+  selectionColor?: string | undefined;
+  value?: string;
+  activeOutlineColor?: string;
+  multiline?: boolean;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  editable?: boolean;
+  height?: number;
+  backgroundColor?: string;
+  styles?: object;
+  autoFocus?: boolean;
+  secureTextEntry?: boolean;
+  required?: boolean;
+}
+
+export default function TextInputRNP(
+  props: TextInputRNPTypes
+): React.JSX.Element {
+  const isDisabled: boolean = props?.disabled as boolean;
   const {
     label = "Enter the Label",
     Outlined = true,
@@ -14,7 +42,7 @@ export default function TextInputRNP(props) {
     right,
     disabled = false,
     placeholder = "Placeholder goes Here",
-    errormsg = I18n.t("error_messages.field_required"),
+    errormsg = "Field required",
     onChangeText,
     selectionColor = theme.primary,
     value,
@@ -24,11 +52,12 @@ export default function TextInputRNP(props) {
     onBlur,
     editable = true,
     height = 50,
-    backgroundColor = disabled ? theme.light : theme.white,
+    backgroundColor = isDisabled ? theme.light : theme.white,
     styles,
     autoFocus = false,
     secureTextEntry = false,
     required = true,
+    ...rest
   } = props || {};
 
   const [text, setText] = useState("");
@@ -36,11 +65,15 @@ export default function TextInputRNP(props) {
   return (
     <>
       <TextInput
-        label={() => (
-          <AppText fontStyle="600.semibold" size={14} color={theme.title}>
-            {label}
-          </AppText>
-        )}
+        {...rest}
+        {...props}
+        label={
+          label && (
+            <AppText fontStyle="600.semibold" size={14} color={theme.title}>
+              {label}
+            </AppText>
+          )
+        }
         value={value || text}
         mode={Outlined ? "outlined" : "flat"}
         onChangeText={onChangeText ? onChangeText : (text) => setText(text)}

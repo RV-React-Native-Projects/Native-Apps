@@ -1,11 +1,23 @@
 import React from "react";
-import { Text } from "react-native";
+import { Text, TextProps } from "react-native";
 import _ from "lodash";
 import { moderateScale } from "react-native-size-matters";
 import { useAppSelector } from "@redux/store";
 
-export default function AppText(props) {
-  const { theme } = useAppSelector((state) => state.theme);
+interface AppTextType extends TextProps {
+  size?: number; // size of the Text
+  fontWeight?: string; // fontWeight of the Text
+  color?: string; // color for the Text
+  children?: React.ReactNode; // to have the childrens
+  fontFamily?: string; // font Family for the Text
+  onPress?: () => void; // function void()
+  style?: object;
+  fontStyle?: string; // fontStyle for the Text
+  // numberOfLines?: number; // number of lines
+}
+
+export default function AppText(props: AppTextType) {
+  const { theme } = useAppSelector((state: any) => state.theme);
 
   const fs = Array.isArray(props?.style) ? props?.style : [props?.style];
 
@@ -23,11 +35,13 @@ export default function AppText(props) {
     children, // to have the childrens
     fontFamily = fontObj.fontFamily, // font Family for the Text
     onPress, // function void()
-  } = props || {};
+    ...rest
+  } = props;
 
   return (
     <Text
       {...props}
+      {...rest}
       style={[
         {
           fontSize: moderateScale(size, 0.3),
