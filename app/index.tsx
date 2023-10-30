@@ -50,15 +50,9 @@ export default function index() {
               Hello Ranvijay!
             </AppText>
             <AppText style={{ paddingTop: 10 }} size={20} fontStyle="600.bold">
-              Find your Perfect Job
+              {I18n.t("screen_messages.find_job")}
             </AppText>
           </View>
-          {/* <AppCheckBox  /> */}
-          {/* <AppText>index</AppText>
-      <AppText color={"#F00"}>index</AppText>
-      <AppText color={"#F00"}>index</AppText>
-      <AppText>index</AppText>
-      <AppText color={"#F00"}>index</AppText> */}
         </View>
       </LoadingContainer>
     </AppContainer>
