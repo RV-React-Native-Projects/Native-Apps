@@ -6,9 +6,10 @@ import {
   TouchableOpacity,
   TextInputProps,
 } from "react-native";
-import ThemeContext from "@contexts/ThemeContext";
+// import ThemeContext from "@contexts/ThemeContext";
 import AppText from "@components/Text/AppText";
 import { moderateScale } from "react-native-size-matters";
+import { useAppSelector } from "@redux/store";
 
 interface AppTextInputTypes extends TextInputProps {
   label?: string;
@@ -40,9 +41,9 @@ interface AppTextInputTypes extends TextInputProps {
 }
 
 export default function AppTextInput(props: AppTextInputTypes) {
-  const { theme, svgs } = useContext(ThemeContext);
+  const { theme } = useAppSelector((state: any) => state.theme);
   const {
-    label = "Label", // lable for the Text Input
+    label, // lable for the Text Input
     labelSize = 14, // fize of the lable
     error = false, // if we have error in the field
     errorMessage = "Enter correct info", // on Error waht shoud be the message
@@ -63,7 +64,7 @@ export default function AppTextInput(props: AppTextInputTypes) {
     styles, // custome style={{}}
     autoFocus = false, // autoFocus : boolean
     secureTextEntry = false, // secureTextEntry: boolean
-    focused = true, // focused: boolean
+    focused = false, // focused: boolean
     borderRadius = 4, // costome  borderRadius as Number
     onPressLeftIcon, // function void()
     onPressRightIcon, // function void()

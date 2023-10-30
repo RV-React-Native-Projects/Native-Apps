@@ -103,7 +103,8 @@
         "other": "%{count} Days",
         "zero": "day"
       },
-      "find_job": "Find your Perfect Job"
+      "find_job": "Find your Perfect Job",
+      "pop_job": "Popular Jobs"
     }
   },
   "en-UK": {

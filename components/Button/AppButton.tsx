@@ -18,7 +18,7 @@ interface AppButtonType {
   textColor?: string;
   fontWeight?: string;
   height?: number;
-  width?: string | null;
+  width?: string | number | null;
   fontSize?: number;
   rounded?: boolean;
   borderRadius?: number;
@@ -118,7 +118,7 @@ export default function AppButton(props: AppButtonType) {
             backgroundColor: disabled
               ? disabledBackgroundColor || theme.subHeader
               : Outlined
-              ? theme.white
+              ? "transparent"
               : LinkButton
               ? "transparent"
               : color,
